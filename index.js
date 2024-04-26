@@ -239,16 +239,16 @@ app.post("/api/province", (req, res) => {
 })
 
 app.put('/api/province', (req, res) => {
-    const id = ValidacionesHelper.getIntegerOrDefault(req.params.id, 0)
-    const response = provinciasArray.find(element => element.id === id)
-    if(response){
+    const id = ValidacionesHelper.getIntegerOrDefault(req.body.id, 0)
+    const index = provinciasArray.findIndex(element => element.id === id)
+    if(index != -1){
         try {
             const name = ValidacionesHelper.getStringOrDefault(req.body.name, '');
             const fullName = ValidacionesHelper.getStringOrDefault(req.body.full_name, 0);
             const latitude = ValidacionesHelper.getIntegerOrDefault(req.body.latitude, '');
             const longitude = ValidacionesHelper.getIntegerOrDefault(req.body.longitude, '');
             const displayOrder = ValidacionesHelper.getIntegerOrDefault(req.body.display_order, '');
-            provinciasArray.push({
+            provinciasArray.splice(index, 1, {
                 "id": id, 
                 "name": name,
                 "full_name": fullName, 
