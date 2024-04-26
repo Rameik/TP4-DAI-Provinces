@@ -243,17 +243,17 @@ app.put('/api/province', (req, res) => {
     const index = provinciasArray.findIndex(element => element.id === id)
     if(index != -1){
         try {
-            const name = ValidacionesHelper.getStringOrDefault(req.body.name, '');
-            const fullName = ValidacionesHelper.getStringOrDefault(req.body.full_name, 0);
-            const latitude = ValidacionesHelper.getIntegerOrDefault(req.body.latitude, '');
-            const longitude = ValidacionesHelper.getIntegerOrDefault(req.body.longitude, '');
-            const displayOrder = ValidacionesHelper.getIntegerOrDefault(req.body.display_order, '');
+            let name = ValidacionesHelper.getStringOrDefault(req.body.name, '').length > 0 ? ValidacionesHelper.getStringOrDefault(req.body.name, '') : provinciasArray[index].name;
+            let fullName = ValidacionesHelper.getStringOrDefault(req.body.full_name, '').length > 0 ? ValidacionesHelper.getStringOrDefault(req.body.full_name, '') : provinciasArray[index].full_name
+            let latitude = ValidacionesHelper.getIntegerOrDefault(req.body.latitude, '').length > 0 ? ValidacionesHelper.getIntegerOrDefault(req.body.latitude, '') : provinciasArray[index].latitude
+            let longitude = ValidacionesHelper.getIntegerOrDefault(req.body.longitude, '').length > 0 ? ValidacionesHelper.getIntegerOrDefault(req.body.longitude, '') : provinciasArray[index].longitude
+            let displayOrder = ValidacionesHelper.getIntegerOrDefault(req.body.display_order, '').length > 0 ? ValidacionesHelper.getIntegerOrDefault(req.body.display_order, '') : provinciasArray[index].display_order
             provinciasArray.splice(index, 1, {
                 "id": id, 
                 "name": name,
-                "full_name": fullName, 
-                "latitude": latitude, 
-                "longitude": longitude, 
+                "full_name": fullName,
+                "latitude": latitude,
+                "longitude": longitude,
                 "display_order": displayOrder
             });
             res.status(201).send('Created (201)');
@@ -263,6 +263,7 @@ app.put('/api/province', (req, res) => {
     }
     else{ res.status(404).send(`No existe una provincia con el id: ${id}`) }
 })
+
 
 app.delete('/api/province/:id', (req, res) => {
     const id = ValidacionesHelper.getIntegerOrDefault(req.params.id, 0)
