@@ -17,6 +17,12 @@ class ValidacionesHelper {
         let newValue = parseInt(value)
         return Number.isInteger(newValue) ? newValue : defaultValue
     };
+    
+    getFloatOrDefault = (value, defaultValue) => {
+        let regexPattern = /^-?[0-9]+$/;
+        let result = regexPattern.test(value);
+        return result ? defaultValue : value;
+    }
     /**
     * Este método recibe un 'value', en el caso de que sea undefined o null
     * retorna el 'defaultValue', sino el valor del parámetro 'value'.
